@@ -135,10 +135,6 @@ const Cart = () => {
     fetchCart();
   }, []);
 
-};
-
-export default Cart;
-
   return (
     <div className="px-8 py-12 bg-gray-100 min-h-screen">
 
@@ -167,7 +163,7 @@ export default Cart;
                 <img
                   src={
                     item.product.images && item.product.images.length > 0
-                      ? `http://localhost:8080${item.product.images[0].imageUrl}`
+                      ? `${BASE_URL}${item.product.images[0]}`
                       : "https://via.placeholder.com/150"
                   }
                   alt={item.product.name}
