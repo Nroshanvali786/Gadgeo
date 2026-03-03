@@ -1,6 +1,5 @@
 package com.example.demo;
 
-
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,26 +16,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.stereotype.Component;
-
 @WebFilter(urlPatterns = {"/api/*", "/admin/*"})
 @Component
 public class AuthenticationFilter implements Filter {
 
-//    private static final Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
-
     private final LoginService authService;
     private final LoginRepo userRepository;
-
-    // private static final String ALLOWED_ORIGIN = "https://*.vercel.app";
-
-    private static final String[] UNAUTHENTICATED_PATHS = {
-            "/api/signup",
-            "/api/login",
-            "/api/products"
-    };
 
     public AuthenticationFilter(LoginService authService, LoginRepo userRepository) {
         this.authService = authService;
@@ -51,34 +36,39 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String requestURI = httpRequest.getRequestURI();
-        System.out.println("REQUEST URI: " + requestURI);
+        String origin = httpRequest.getHeader("Origin");
 
-        // Always set CORS
-        // setCORSHeaders(httpResponse);
+        // ✅ Handle CORS preflight request
+        if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
 
-        // Handle OPTIONS request
-        if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
+            if (origin != null) {
+                httpResponse.setHeader("Access-Control-Allow-Origin", origin);
+            }
+
+            httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+            httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
             httpResponse.setStatus(HttpServletResponse.SC_OK);
             return;
         }
 
-        // ✅ PUBLIC ENDPOINTS
+        // ✅ Public endpoints
         if (requestURI.startsWith("/api/signup") ||
-        	    requestURI.startsWith("/api/login") ||
-        	    requestURI.startsWith("/api/products") ||
-        	    requestURI.startsWith("/images")) {
+            requestURI.startsWith("/api/login") ||
+            requestURI.startsWith("/api/products") ||
+            requestURI.startsWith("/images")) {
 
-        	    chain.doFilter(request, response);
-        	    return;
+            chain.doFilter(request, response);
+            return;
         }
 
-
-        // 🔐 PROTECTED ENDPOINTS BELOW
+        // 🔐 Protected endpoints
 
         String token = getAuthTokenFromCookies(httpRequest);
 
         if (token == null || !authService.validateToken(token)) {
-            sendErrorResponse(httpResponse,
+            sendErrorResponse(httpRequest, httpResponse,
                     HttpServletResponse.SC_UNAUTHORIZED,
                     "Unauthorized: Invalid or missing token");
             return;
@@ -88,7 +78,7 @@ public class AuthenticationFilter implements Filter {
         Optional<Login> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isEmpty()) {
-            sendErrorResponse(httpResponse,
+            sendErrorResponse(httpRequest, httpResponse,
                     HttpServletResponse.SC_UNAUTHORIZED,
                     "Unauthorized: User not found");
             return;
@@ -96,23 +86,23 @@ public class AuthenticationFilter implements Filter {
 
         Login authenticatedUser = userOptional.get();
 
-        // 🔐 Protect Admin endpoints only
+        // 🔐 Admin protection
         if (requestURI.startsWith("/admin") &&
                 !authenticatedUser.getRole().equals("ADMIN")) {
 
-            sendErrorResponse(httpResponse,
+            sendErrorResponse(httpRequest, httpResponse,
                     HttpServletResponse.SC_FORBIDDEN,
                     "Forbidden: Admin access required");
             return;
         }
 
-        // 🔐 Protect Cart endpoints only
+        // 🔐 Cart protection
         if (requestURI.startsWith("/api/cart") &&
                 !(authenticatedUser.getRole().equals("CUSTOMER") ||
                   authenticatedUser.getRole().equals("ADMIN") ||
                   authenticatedUser.getRole().equals("VENDOR"))) {
 
-            sendErrorResponse(httpResponse,
+            sendErrorResponse(httpRequest, httpResponse,
                     HttpServletResponse.SC_FORBIDDEN,
                     "Forbidden: Access denied");
             return;
@@ -123,18 +113,20 @@ public class AuthenticationFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-
-//     private void setCORSHeaders(HttpServletResponse response) {
-//         response.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
-//         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//         response.setHeader("Access-Control-Allow-Credentials", "true");
-// //        response.setStatus(HttpServletResponse.SC_OK);
-//     }
-
-    private void sendErrorResponse(HttpServletResponse response,
+    private void sendErrorResponse(HttpServletRequest request,
+                                   HttpServletResponse response,
                                    int statusCode,
                                    String message) throws IOException {
+
+        String origin = request.getHeader("Origin");
+
+        if (origin != null) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+        }
+
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
         response.setStatus(statusCode);
         response.getWriter().write(message);
