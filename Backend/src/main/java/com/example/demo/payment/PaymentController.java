@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173","https://gadgeo-ktfjs5omh-nroshanvali786s-projects.vercel.app", allowCredentials = "true")
 @RequestMapping("/api/payment")
 public class PaymentController {
 
