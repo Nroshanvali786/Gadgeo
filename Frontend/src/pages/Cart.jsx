@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,16 +8,16 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
 
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const fetchCart = async () => {
     try {
-      const BASE_URL = import.meta.env.VITE_API_BASE_URL;
       const res = await fetch(`${BASE_URL}/api/cart`, {
         credentials: "include"
       });
 
       const data = await res.json();
       setCartItems(data);
-
       calculateTotal(data);
 
     } catch (error) {
@@ -35,7 +34,7 @@ const Cart = () => {
   };
 
   const increaseQty = async (id, quantity) => {
-    await fetch(`http://localhost:8080/api/cart/${id}?quantity=${quantity + 1}`, {
+    await fetch(`${BASE_URL}/api/cart/${id}?quantity=${quantity + 1}`, {
       method: "PUT",
       credentials: "include"
     });
@@ -46,7 +45,7 @@ const Cart = () => {
   const decreaseQty = async (id, quantity) => {
     if (quantity === 1) return;
 
-    await fetch(`http://localhost:8080/api/cart/${id}?quantity=${quantity - 1}`, {
+    await fetch(`${BASE_URL}/api/cart/${id}?quantity=${quantity - 1}`, {
       method: "PUT",
       credentials: "include"
     });
@@ -55,7 +54,7 @@ const Cart = () => {
   };
 
   const removeItem = async (id) => {
-    await fetch(`http://localhost:8080/api/cart/${id}`, {
+    await fetch(`${BASE_URL}/api/cart/${id}`, {
       method: "DELETE",
       credentials: "include"
     });
@@ -66,9 +65,8 @@ const Cart = () => {
   const handlePayment = async () => {
     try {
 
-      // 1️⃣ Create Razorpay Order (backend)
       const orderRes = await fetch(
-        "http://localhost:8080/api/payment/create",
+        `${BASE_URL}/api/payment/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -91,7 +89,6 @@ const Cart = () => {
 
       const razorpayOrderId = await orderRes.text();
 
-      // 2️⃣ Open Razorpay Checkout
       const options = {
         key: "rzp_test_SJPdSiOp14Lt0F",
         amount: total * 100,
@@ -102,9 +99,8 @@ const Cart = () => {
 
         handler: async function (response) {
 
-          // 3️⃣ Verify Payment
           const verifyRes = await fetch(
-            "http://localhost:8080/api/payment/verify",
+            `${BASE_URL}/api/payment/verify`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -138,6 +134,10 @@ const Cart = () => {
   useEffect(() => {
     fetchCart();
   }, []);
+
+};
+
+export default Cart;
 
   return (
     <div className="px-8 py-12 bg-gray-100 min-h-screen">
