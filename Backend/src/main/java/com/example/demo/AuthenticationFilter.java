@@ -30,7 +30,7 @@ public class AuthenticationFilter implements Filter {
     private final LoginService authService;
     private final LoginRepo userRepository;
 
-    private static final String ALLOWED_ORIGIN = "http://localhost:5173";
+    private static final String ALLOWED_ORIGIN = "http://localhost:5173", "https://gadgeo-ktfjs5omh-nroshanvali786s-projects.vercel.app";
 
     private static final String[] UNAUTHENTICATED_PATHS = {
             "/api/signup",
