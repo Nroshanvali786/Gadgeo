@@ -6,7 +6,8 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/orders", {
+    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    fetch(`${BASE_URL}/api/orders`, {
       credentials: "include"
     })
       .then(res => {
