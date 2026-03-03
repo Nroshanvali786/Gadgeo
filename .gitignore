@@ -1,0 +1,20 @@
+# Node
+frontend/node_modules
+frontend/dist
+
+# Java
+backend/target
+backend/.mvn
+backend/.classpath
+backend/.project
+backend/.settings
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+mysql_data
