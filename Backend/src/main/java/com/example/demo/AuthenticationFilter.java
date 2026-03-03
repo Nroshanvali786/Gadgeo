@@ -30,7 +30,7 @@ public class AuthenticationFilter implements Filter {
     private final LoginService authService;
     private final LoginRepo userRepository;
 
-    private static final String ALLOWED_ORIGIN = "https://gadgeo-ktfjs5omh-nroshanvali786s-projects.vercel.app";
+    // private static final String ALLOWED_ORIGIN = "https://*.vercel.app";
 
     private static final String[] UNAUTHENTICATED_PATHS = {
             "/api/signup",
@@ -54,7 +54,7 @@ public class AuthenticationFilter implements Filter {
         System.out.println("REQUEST URI: " + requestURI);
 
         // Always set CORS
-        setCORSHeaders(httpResponse);
+        // setCORSHeaders(httpResponse);
 
         // Handle OPTIONS request
         if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
@@ -124,13 +124,13 @@ public class AuthenticationFilter implements Filter {
     }
 
 
-    private void setCORSHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-//        response.setStatus(HttpServletResponse.SC_OK);
-    }
+//     private void setCORSHeaders(HttpServletResponse response) {
+//         response.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+//         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//         response.setHeader("Access-Control-Allow-Credentials", "true");
+// //        response.setStatus(HttpServletResponse.SC_OK);
+//     }
 
     private void sendErrorResponse(HttpServletResponse response,
                                    int statusCode,
