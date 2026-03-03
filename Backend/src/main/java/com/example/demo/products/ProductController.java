@@ -18,9 +18,9 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(
-    origins = {
+    originPatterns = {
         "http://localhost:5173",
-        "https://gadgeo-ktfjs5omh-nroshanvali786s-projects.vercel.app"
+        "https://*.vercel.app"
     },
     allowCredentials = "true"
 )
