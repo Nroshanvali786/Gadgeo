@@ -19,9 +19,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @CrossOrigin(
-	    origins = "http://localhost:5173","https://gadgeo-ktfjs5omh-nroshanvali786s-projects.vercel.app",
-	    allowCredentials = "true"
-	)
+    origins = {
+        "http://localhost:5173",
+        "https://gadgeo-ktfjs5omh-nroshanvali786s-projects.vercel.app"
+    },
+    allowCredentials = "true"
+)
 
 @RequestMapping("/api")
 public class LoginController {
