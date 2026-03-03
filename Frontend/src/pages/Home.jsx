@@ -1,7 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from "react-router-dom"
-import Curousel from '../components/Curousel'
-
+import { Link } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
@@ -11,6 +9,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const Home = () => {
+
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const [products, setProducts] = useState([]);
   const [laptops, setLaptops] = useState([]);
   const [mobileAcc, setMobileAcc] = useState([]);
@@ -19,14 +20,12 @@ const Home = () => {
   const [gamingAcc, setGamingAcc] = useState([]);
 
   const role = localStorage.getItem("role");
-
   const [showAdminPanel, setShowAdminPanel] = useState(false);
-
 
   const addToCart = async (productId) => {
     try {
       const res = await fetch(
-        `http://localhost:8080/api/cart/add/${productId}`,
+        `${BASE_URL}/api/cart/add/${productId}`,
         {
           method: "POST",
           credentials: "include"
@@ -49,47 +48,39 @@ const Home = () => {
 
     const fetchProducts = async () => {
       try {
-        // Mobiles
-        const mobileRes = await fetch("http://localhost:8080/api/products?category=mobiles");
-        const mobileData = await mobileRes.json();
 
+        const mobileRes = await fetch(`${BASE_URL}/api/products?category=mobiles`);
+        const mobileData = await mobileRes.json();
         if (mobileRes.ok) {
           setProducts(mobileData.products.slice(0, 8));
         }
 
-        // Laptops
-        const laptopRes = await fetch("http://localhost:8080/api/products?category=Laptops");
+        const laptopRes = await fetch(`${BASE_URL}/api/products?category=Laptops`);
         const laptopData = await laptopRes.json();
-
         if (laptopRes.ok) {
-          console.log(laptopData.products.length);
           setLaptops(laptopData.products.slice(0, 6));
         }
 
-        const mobileAccRes = await fetch("http://localhost:8080/api/products?category=Mobile%20Accessories");
+        const mobileAccRes = await fetch(`${BASE_URL}/api/products?category=Mobile%20Accessories`);
         const mobileAccData = await mobileAccRes.json();
-
         if (mobileAccRes.ok) {
           setMobileAcc(mobileAccData.products.slice(0, 3));
         }
 
-        const laptopAccRes = await fetch("http://localhost:8080/api/products?category=Laptop%20Accessories");
+        const laptopAccRes = await fetch(`${BASE_URL}/api/products?category=Laptop%20Accessories`);
         const laptopAccData = await laptopAccRes.json();
-
         if (laptopAccRes.ok) {
           setLaptopAcc(laptopAccData.products.slice(0, 3));
         }
 
-        const audioRes = await fetch("http://localhost:8080/api/products?category=Audio%20Accessories");
+        const audioRes = await fetch(`${BASE_URL}/api/products?category=Audio%20Accessories`);
         const audioData = await audioRes.json();
-
         if (audioRes.ok) {
           setAudioAcc(audioData.products.slice(0, 4));
         }
 
-        const gamingRes = await fetch("http://localhost:8080/api/products?category=Gaming%20Accessories");
+        const gamingRes = await fetch(`${BASE_URL}/api/products?category=Gaming%20Accessories`);
         const gamingData = await gamingRes.json();
-
         if (gamingRes.ok) {
           setGamingAcc(gamingData.products.slice(0, 3));
         }
@@ -100,8 +91,6 @@ const Home = () => {
     };
 
     fetchProducts();
-
-
 
   }, []);
 
