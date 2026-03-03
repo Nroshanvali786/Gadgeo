@@ -14,7 +14,7 @@ import com.example.demo.Login;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true") 
+@CrossOrigin(origins = "http://localhost:5173", "https://gadgeo-ktfjs5omh-nroshanvali786s-projects.vercel.app", allowCredentials = "true") 
 @RequestMapping("/api/orders")
 public class OrderController {
 
