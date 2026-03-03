@@ -22,7 +22,7 @@ import com.example.demo.*;
 
 @RestController
 @RequestMapping("/api/cart")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173", "https://gadgeo-ktfjs5omh-nroshanvali786s-projects.vercel.app")
 public class CartController {
 
     @Autowired
