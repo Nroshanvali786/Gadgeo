@@ -26,7 +26,10 @@ const App = () => {
       const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
 
       try {
-        const location = await axios.get(url)
+        // const location = await axios.get(url)
+        const location = await axios.get(url, {
+          withCredentials: false
+        })
         // console.log(location);
         const exactLocation = location.data.address
         console.log(exactLocation);
