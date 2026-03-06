@@ -206,9 +206,9 @@ const Home = () => {
                 {/* Image Section */}
                 <div className="hidden md:flex items-center justify-center w-1/2">
                   <img
-                    src={`http://localhost:8080${product.images?.[0]}`}
+                    src={`${BASE_URL}${product.images?.[0]}`}
                     alt="Phone"
-                    className="max-h-100 object-contain drop-shadow-2xl "
+                    className="max-h-100 object-contain drop-shadow-2xl"
                   />
                 </div>
 
@@ -243,9 +243,9 @@ const Home = () => {
 
                 <div className="hidden md:block">
                   <img
-                    src={`http://localhost:8080${product.images?.[0]}`}
+                    src={`${BASE_URL}${product.images?.[0]}`}
                     alt="Laptop"
-                    className="h-87.5 object-contain -translate-x-20"
+                    className="h-[350px] object-contain -translate-x-20"
                   />
                 </div>
 
@@ -280,9 +280,9 @@ const Home = () => {
                 {/* Image Section */}
                 <div className="hidden md:flex items-center justify-center w-1/2">
                   <img
-                    src={`http://localhost:8080${product.images?.[0]}`}
+                    src={`${BASE_URL}${product.images?.[0]}`}
                     alt="Phone"
-                    className="max-h-100 object-contain drop-shadow-2xl "
+                    className="max-h-[400px] object-contain drop-shadow-2xl"
                   />
                 </div>
 
@@ -336,7 +336,11 @@ const Home = () => {
             <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4">
 
               <img
-                src={`http://localhost:8080${product.images?.[0]}`}
+                src={
+                  product.images?.[0]
+                    ? `${BASE_URL}${product.images[0]}`
+                    : "/no-image.png"
+                }
                 alt={product.name}
                 className="h-48 w-full object-contain mb-4"
               />
@@ -398,7 +402,11 @@ const Home = () => {
             <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4">
 
               <img
-                src={`http://localhost:8080${laptops.images?.[0]}`}
+                src={
+                  laptops.images?.[0]
+                    ? `${BASE_URL}${laptops.images[0]}`
+                    : "/no-image.png"
+                }
                 alt={laptops.name}
                 className="h-48 w-full object-contain mb-4"
               />
@@ -459,7 +467,11 @@ const Home = () => {
             <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4">
 
               <img
-                src={`http://localhost:8080${mobileAc.images?.[0]}`}
+                src={
+                  mobileAc.images?.[0]
+                    ? `${BASE_URL}${mobileAc.images[0]}`
+                    : "/no-image.png"
+                }
                 alt={mobileAc.name}
                 className="h-48 w-full object-contain mb-4"
               />
@@ -494,7 +506,11 @@ const Home = () => {
             <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4">
 
               <img
-                src={`http://localhost:8080${laptopAcc.images?.[0]}`}
+                src={
+                  laptopAcc.images?.[0]
+                    ? `${BASE_URL}${laptopAcc.images[0]}`
+                    : "/no-image.png"
+                }
                 alt={laptopAcc.name}
                 className="h-48 w-full object-contain mb-4"
               />
@@ -529,7 +545,11 @@ const Home = () => {
             <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4">
 
               <img
-                src={`http://localhost:8080${audioAcc.images?.[0]}`}
+                src={
+                  audioAcc.images?.[0]
+                    ? `${BASE_URL}${audioAcc.images[0]}`
+                    : "/no-image.png"
+                }
                 alt={audioAcc.name}
                 className="h-48 w-full object-contain mb-4"
               />
@@ -564,7 +584,11 @@ const Home = () => {
             <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4">
 
               <img
-                src={`http://localhost:8080${gamingAcc.images?.[0]}`}
+                src={
+                  gamingAcc.images?.[0]
+                    ? `${BASE_URL}${gamingAcc.images[0]}`
+                    : "/no-image.png"
+                }
                 alt={gamingAcc.name}
                 className="h-48 w-full object-contain mb-4"
               />
