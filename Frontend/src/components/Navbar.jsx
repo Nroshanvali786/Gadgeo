@@ -13,6 +13,7 @@ const Navbar = ({ user, setUser, location, getLocation, openDropDown, setOpenDro
     const [cartCount, setCartCount] = useState(0);
     const [mobileOpen, setMobileOpen] = useState(false);
     const navigate = useNavigate()
+    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
     const toggleDropDown = () => {
