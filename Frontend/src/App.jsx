@@ -18,6 +18,7 @@ const App = () => {
   const [location, setLocation] = useState();
   const [user, setUser] = useState(null)
   const [openDropDown, setOpenDropDown] = useState(false)
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const getLocation = async () => {
     navigator.geolocation.getCurrentPosition(async pos => {
       const { latitude, longitude } = pos.coords
@@ -52,7 +53,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    // const BASE_URL = import.meta.env.VITE_API_BASE_URL;
     fetch(`${BASE_URL}/api/me`, {
       credentials: "include"
     })
