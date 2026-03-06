@@ -24,7 +24,7 @@ public class ProductService {
         if (categoryName != null && !categoryName.isEmpty()) {
 
             Optional<Category> categoryOpt =
-                    categoryRepository.findByCategoryName(categoryName);
+                    categoryRepository.findByCategoryNameIgnoreCase(categoryName);
 
             if (categoryOpt.isPresent()) {
 
@@ -34,7 +34,7 @@ public class ProductService {
                         .findByCategory_CategoryId(category.categoryId);
 
             } else {
-                throw new RuntimeException("Category not found");
+                return new ArrayList<>();
             }
 
         } else {
