@@ -99,7 +99,7 @@ public class LoginController {
         	    "; Max-Age=3600" +
         	    "; Path=/" +
         	    "; HttpOnly" +
-        	    "; SameSite=Lax" 
+        	    "; SameSite=None" 
 //        	    "; Secure"
         	);
 
