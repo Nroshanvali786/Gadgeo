@@ -25,7 +25,7 @@ const Navbar = ({ user, setUser, location, getLocation, openDropDown, setOpenDro
 
     const handleLogout = async () => {
         try {
-            await fetch("http://localhost:8080/api/logout", {
+            await fetch(`${BASE_URL}/api/logout`, {
                 method: "POST",
                 credentials: "include"
             });
@@ -41,7 +41,7 @@ const Navbar = ({ user, setUser, location, getLocation, openDropDown, setOpenDro
 
     const fetchCartCount = async () => {
         try {
-            const res = await fetch("http://localhost:8080/api/cart", {
+            const res = await fetch(`${BASE_URL}/api/cart`, {
                 credentials: "include"
             });
 
