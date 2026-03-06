@@ -9,6 +9,7 @@ export default function Login({ setUser }) {
   const [error, setError] = useState("")
   // const [user, setUser] = useState("")
   const navigate = useNavigate()
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   // useEffect(() => {
   //   const storedUser = localStorage.getItem("userEmail")
