@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const categories = [
   "All",
-  "mobiles",
+  "Mobiles",
   "Laptops",
   "Mobile Accessories",
   "Laptop Accessories",
