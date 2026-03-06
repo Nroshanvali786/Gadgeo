@@ -12,6 +12,7 @@ export default function SignUp() {
   const [error, setError] = useState("")
   const [role, setRole] = useState("")
   const navigate = useNavigate()
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleSignup = async e => {
     e.preventDefault()
