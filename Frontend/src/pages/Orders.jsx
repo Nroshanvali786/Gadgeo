@@ -62,7 +62,7 @@ const Orders = () => {
               <div className="flex items-center gap-6">
 
                 <img
-                  src={`http://localhost:8080${item.image_url}`}
+                  src={`${BASE_URL}${item.image_url}`}
                   alt={item.name}
                   className="w-24 h-24 object-contain"
                 />
