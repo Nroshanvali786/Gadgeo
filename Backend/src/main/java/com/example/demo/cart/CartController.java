@@ -40,6 +40,9 @@ public class CartController {
                           HttpServletRequest request) {
 
         Login user = (Login) request.getAttribute("authenticatedUser");
+        if (user == null) {
+            throw new RuntimeException("User not authenticated");
+        }
 
         return cartService.addToCart(user.getId(), productId);
     }
@@ -49,6 +52,9 @@ public class CartController {
     public List<Cart> getCart(HttpServletRequest request) {
 
         Login user = (Login) request.getAttribute("authenticatedUser");
+        if (user == null) {
+            throw new RuntimeException("User not authenticated");
+        }
 
         return cartService.getUserCart(user.getId());
     }
