@@ -57,6 +57,7 @@ public class AuthenticationFilter implements Filter {
         if (requestURI.startsWith("/api/signup") ||
             requestURI.startsWith("/api/login") ||
             requestURI.startsWith("/api/products") ||
+            requestURI.startsWith("/api/me") ||
             requestURI.startsWith("/images")) {
 
             chain.doFilter(request, response);
