@@ -21,7 +21,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @CrossOrigin(
     originPatterns = {
         "http://localhost:5173",
-        "https://*.vercel.app"
+        "https://*.vercel.app",
+        "https://*.onrender.com"
     },
     allowCredentials = "true"
 )
@@ -94,14 +95,14 @@ public class LoginController {
 
         // Create cookie
         response.setHeader(
-        	    "Set-Cookie",
-        	    "authToken=" + token +
-        	    "; Max-Age=3600" +
-        	    "; Path=/" +
-        	    "; HttpOnly" +
-        	    "; SameSite=None" 
-//        	    "; Secure"
-        	);
+            "Set-Cookie",
+            "authToken=" + token +
+            "; Max-Age=3600" +
+            "; Path=/" +
+            "; HttpOnly" +
+            "; SameSite=None" +
+            "; Secure"
+        );
 
 
 
